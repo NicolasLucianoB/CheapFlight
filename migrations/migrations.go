@@ -1,8 +1,8 @@
 package migrations
 
 import (
-	"CheapFlight/models/database"
-	"CheapFlight/models/models"
+	"CheapFlight/database"
+	"CheapFlight/models"
 	"fmt"
 	"log"
 )

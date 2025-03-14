@@ -1,0 +1,152 @@
+definitions:
+  models.Flight:
+    properties:
+      arrival:
+        type: string
+      arrival_time:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        description: Alterado para *time.Time
+        type: string
+      departure:
+        type: string
+      departure_time:
+        type: string
+      flight_number:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      updated_at:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/flights:
+    get:
+      description: Retorna todos os voos disponíveis
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Flight'
+            type: array
+      summary: Lista todos os voos
+      tags:
+      - flights
+    post:
+      consumes:
+      - application/json
+      description: Adiciona um novo voo à base de dados
+      parameters:
+      - description: Dados do voo
+        in: body
+        name: flight
+        required: true
+        schema:
+          $ref: '#/definitions/models.Flight'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Flight'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cria um novo voo
+      tags:
+      - flights
+  /api/flights/{id}:
+    delete:
+      description: Remove um voo da base de dados pelo ID
+      parameters:
+      - description: ID do voo
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Deleta um voo
+      tags:
+      - flights
+    get:
+      description: Retorna os detalhes de um voo pelo ID
+      parameters:
+      - description: ID do voo
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Flight'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Obtém um voo específico
+      tags:
+      - flights
+    put:
+      consumes:
+      - application/json
+      description: Modifica os dados de um voo pelo ID
+      parameters:
+      - description: ID do voo
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Novos dados do voo
+        in: body
+        name: flight
+        required: true
+        schema:
+          $ref: '#/definitions/models.Flight'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Flight'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Atualiza um voo
+      tags:
+      - flights
+swagger: "2.0"
